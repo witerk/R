@@ -11,8 +11,8 @@
 싸인( sin(pi/6) =sin30도) 코싸인( cos(pi/6) ) 탄젠트( tan(pi/4) ) <br>
 
 **2. 수 나열** <br>
-sample(n): 1~n사이, n개, 중복x (셔플이랑 비슷) <br>
-sample(n:m, c): n~m사이, c개, 중복x (범위 내에서 샘플 생성) <br>
+sample(n): 1 ~ n사이, n개, 중복x (셔플이랑 비슷) <br>
+sample(n:m, c): n ~ m사이, c개, 중복x (범위 내에서 샘플 생성) <br>
 n:m : n~m까지 숫자나열 <br>
 
 **3. 변수명** <br>
