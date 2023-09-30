@@ -150,9 +150,102 @@ x[ ,3]: 3열 전부 다 출력 <br>
 colnames(x) = c('나이','몸무게','월'): 칼럼 이름 지정 <br>
 rownames(x) = c('영수','수연','연희','희수'): 행 이름 지정(각 인덱스명 지정) <br>
 
+colnames(x): 칼럼명 리스트 <br>
+rownames(x): 인덱스명 리스트 <br>
+
 x['수연', ]: 한 행을 전부 뽑고 싶다면 인덱스 번호 대신 이렇게도 가능 <br>
 x['수연', '나이']: 인덱스 번호 대신 값 접근 가능 <br>
 단, 여기서도 콤마+공백이 없다면 NA출력 (칼럼명으로 출력할 때도 마찬가지) <br>
 
-colnames(x): 칼럼명 리스트 <br>
-rownames(x): 인덱스명 리스트 <br>
+x$'나이'  : 나이 열 전부 출력(따옴표 없어도 실행됨) <br>
+
+iris[ , c(1:3)]: 1~3열 전부 출력 <br>
+iris[ , c(2,7)]: 2열, 7열 전부 출력 <br>
+*숫자대신 칼럼명으로 접근해도 마찬가지. 따옴표 써줄 것 <br>
+
+## **<chapter 3>** <br>
+**1. 데이터프레임** <br>
+df = data.frame(c('seoul', 'dokyo', 'washington'), c(1,3,2)) <br>
+: 데이터프레임 생성 (이름 지정을 안 해줘서 칼럼명 자리에 c...seoul...dokyo... 이런식으로 더럽게 나옴) <br>
+
+city = c('seoul', 'dokyo', 'washington') <br>
+rank =  c(1,3,2) <br>
+df = data.frame(city, rank) <br>
+: city와 rank가 칼럼명으로 자동 설정 <br>
+
+df = data.frame(city=c('seoul', 'dokyo', 'washington'), rank=c(1,3,2)) <br>
+: 이렇게 바로 이름을 지정해 줄 수도 있음 <br>
+
+**2. 매트릭스 <-> 데이터프레임 변환** <br>
+as.matrix(df): 매트릭스로 변환 <br>
+as.data.frame(df): 데이터프레임으로 변환 <br>
+*as 없어도 잘 돌아감 <br>
+
+**3. 매트릭스의 덧셈** <br>
+같은 위치에 있는 수끼리 연산 <br>
+두 매트릭스의 형태가 같아야 함 <br>
+데이터프레임은 모든 데이터가 숫자일 경우만 연산 가능 <br>
+
+**4. 길이(사이즈) 확인 함수** <br>
+dim(a) : 형태(n x m) <br>
+nrow(a), ncol(a) : 행/열 개수 <br>
+rownames(a), colnames(a) : 행/열 이름 출력 (=부호로 정의하면 행/열 이름 설정도 가능) <br>
+head(iris, 5), tail(iris, 5): 맨앞/맨뒤 5개 행 출력(기본값은 6행) <br>
+
+**5. 테이블 정보** <br>
+str(iris) : 해당 변수의 정보 출력(자료형, 행렬 사이즈, 칼럼별 데이터&자료형, factor, levels 등) <br>
+unique(iris[ , 5]) : 5열에 있는 값 종류들을 보여줌 <br>
+table(iris[ , 5]) : 5열의 각 값 종류별 개수 카운트 <br>
+
+**6. 산술연산자** <br>
+colSums(a) : 각 칼럼별 합(문자열 칼럼은 빼줘야 제대로 연산됨) <br>
+colMeans(a) : 칼럼별 평균 <br>
+rowSums(a) : 각 행별 합 <br>
+rowMeans(a) : 행별 평균 <br>
+
+**7. 전치함수 t** <br>
+t(a) : 전치행렬(행과 열을 뒤바꿔 줌) <br>
+
+**8. 데이터프레임 조건 함수** <br>
+subset(iris, Length>5) : 조건을 걸어 특정 행만 추출 <br>
+*매트릭스의 경우 칼럼 이름에 따옴표를 쳐줘야 함 (그래도 오류 많이 남) <br>
+  - 방법1) subset(a, a[ , 3]>5)숫자 인덱스로 접근 <br>
+  - 방법2) subset(data.frame(a), col>5) 잠시 데이터프레임으로 바꿔서 조건 걸어줌 <br>
+*데이터프레임은 칼럼명에 따옴표x <br>
+
+## **<chapter 4>** <br>
+**1. 입출력 함수** <br>
+print(a) : 출력함수 (문자열이나 변수를 '1개'만 출력 가능/ 여러개 넣을 경우 첫 번째 것만 출력) <br>
+cat('나의 이름은', name, '입니다.') : 변수 및 문자열을 혼합해 사용 가능 (개수 제한x) <br>
+
+**2. 입력 함수** <br>
+install.packages('svDialogs') :  패키지 설치 <br>
+library(svDialogs) : 활성화 <br>
+
+dlgInput('내용을 입력해주세요: ')$res : 입력함수 (모두 string형태로 받음/ $res가 없으면 nan값으로 받음) <br>
+as.numeric(dlgInput('숫자로 입력: ')$res) : 이런 식으로 입력받은 문자를 숫자형으로 바꿀 수 있음 <br>
+
+**3. 작업 파일** <br>
+getwd() : 현재 작업 폴더 알려줌 <br>
+setwd('경로') : 작업 폴더 변경 <br>
+
+**4. 파일 읽고 쓰기** <br>
+read.csv('파일 경로') : csv파일 읽어오기(현재작업 폴더 내에 있으면 파일명만 써도ok) <br>
+  - header=F : 첫 번째 줄을 헤더(칼럼)로 받지 않음 (일반 데이터로 들어감) <br>
+
+write.csv(data, '파일 경로') : 파일 저장 (칼럼명, 인덱스명 자동 설정됨) <br>
+  - row.names=F : 인덱스명 삭제 <br>
+  - col.names=F : 칼럼명 삭제 <br>
+
+read.table('텍스트파일 경로', sep='\t') : txt파일 읽기(각 데이터 구분이 tab으로 되어 있음) <br>
+read.delim('텍스트파일 경로') : tab을 자동으로 인식함 <br>
+
+write.table(data, '텍스트파일 경로') : 파일 저장 <br>
+  - quoto=F : 쌍따옴표 삭제 <br>
+  - append=T : 파일 이어쓰기 (아래에 새로운 정보를 붙여서 씀) <br>
+  - eol='\\\\' : 각 행 구분 문자 지정(기본은 줄바꿈으로 구분) <br>
+
+sink('파일 경로', append=T) <br>
+cat('가장 젋은 사람의 나이는', young, '이다.\n') <br>
+sink() <br>
+*3줄을 동시에 실행시켜야 함. cat에 출력될 내용이 파일에 저장됨 <br>
