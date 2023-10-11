@@ -71,7 +71,7 @@ d[-1:-4]: 1~4번 인덱스 빼고(-(1:4)와 같음) <br>
 
 **11. 정렬** <br>
 sort(a): 오름차순 정렬 <br>
-sort(a, deceasing=T): 내림차순 정렬(옵션명 없이 T만 써도 됨) <br>
+sort(a, decreasing=T): 내림차순 정렬(옵션명 없이 T만 써도 됨) <br>
 
 **12. 연산 함수** <br>
 합계 sum(d), 평균 mean(d), 중앙값median(d) <br>
