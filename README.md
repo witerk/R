@@ -241,7 +241,7 @@ read.table('텍스트파일 경로', sep='\t') : txt파일 읽기(각 데이터 
 read.delim('텍스트파일 경로') : tab을 자동으로 인식함 <br>
 
 write.table(data, '텍스트파일 경로') : 파일 저장 <br>
-  - quoto=F : 쌍따옴표 삭제 <br>
+  - quote=F : 쌍따옴표 삭제 <br>
   - append=T : 파일 이어쓰기 (아래에 새로운 정보를 붙여서 씀) <br>
   - eol='\\\\' : 각 행 구분 문자 지정(기본은 줄바꿈으로 구분) <br>
 
