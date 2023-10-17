@@ -249,3 +249,38 @@ sink('파일 경로', append=T) <br>
 cat('가장 젋은 사람의 나이는', young, '이다.\n') <br>
 sink() <br>
 *sink~sink줄 동시실행(세트임) -> 그 사이의 내용이 파일에 쓰여짐 <br>
+
+## **<chapter 5>** <br>
+**1. 조건문 if** <br>
+if(score >= 90){ <br>
+print('학점은 A입니다.') <br>
+} else if(score >=80){ <br>
+print('학점은 B입니다.') <br>
+} else{ <br>
+print('학점은 C입니다.') <br>
+} <br>
+*if elseif else 할 때 {}괄호 바로 옆에 써야 함 <br>
+
+ifelse(a>b, a, b) <br>
+: 조건이 참이면 a를, 거짓이면 b를 반환 <br>
+반환 형식이기 때문에 a, b자리에 a=6이런 식으로 대입x <br>
+a = ifelse(a>b, 6, -1) 이렇게는 가능 <br>
+
+**2. 반복문 for** <br>
+for(i in 1:10){ <br>
+print(i)  } <br>
+
+i=1 <br>
+while(i<=10){ <br>
+print(i) <br>
+i = i+1  } <br>
+
+*for문 <-> while문 자유롭게 변환 가능해야 함 <br>
+
+**3. 연산자** <br>
++=같은 복합 연산자 사용x <br>
+and(&) or(|)은 영어x 기호로 표기할 것 <br>
+
+**4. 중단/계속** <br>
+break: 반복문 빠져나옴 <br>
+next: 아래 부분을 무시한 채 다음 반복으로 넘어감 <br>
