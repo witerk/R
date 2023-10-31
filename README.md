@@ -277,10 +277,43 @@ i = i+1  } <br>
 
 *for문 <-> while문 자유롭게 변환 가능해야 함 <br>
 
-**3. 연산자** <br>
-+=같은 복합 연산자 사용x <br>
-and(&) or(|)은 영어x 기호로 표기할 것 <br>
+## **<chapter 6>** <br>
+**1. apply(df, n, function)** <br>
+데이터셋에 행 혹은 열 방향으로 함수 적용<br>
+n 자리가 1이면 행, 2면 열 (파이썬과 혼동하지 말 것: 0행,1열)<br>
+ex) apply(a, 1, mean) -> a의 각 행별로 평균값<br>
 
-**4. 중단/계속** <br>
-break: 반복문 빠져나옴 <br>
-next: 아래 부분을 무시한 채 다음 반복으로 넘어감 <br>
+데이터셋이 반드시 숫자일 필요는 없음<br>
+단, 적용할 함수가 숫자에만 가능한 함수인지 확인 필요<br>
+ex) apply(a, 2, length) -> 각 열 별 데이터 개수<br>
+
+**2. 사용자 정의 함수** <br>
+nayoung = function(x, y=0){<br>
+z1 = x+y<br>
+z2 = x*y<br>
+return ( list(sum=z1, mul= z2) )<br>
+}<br>
+a = nayoung(x=2, y=10)<br>
+print(a$sum)<br>
+
+리턴값은 필수x 필요한 경우 사용. 괄호 필수 return( )<br>
+리턴값이 2개 이상이면 반드시 리스트로 묶어줘야 함<br>
+리턴 리스트에 이름을 지정해주면 나중에 활용이 편함<br>
+
+인자는 받지 않거나, 여러개 받아도ok 단, 전달값과 입력받는 값의 개수가 일치해야 함<br>
+인자를 받을 때 초기값을 설정했으면 해당 변수는 입력하지 않아도ok<br>
+
+**3. 다른 파일의 사용자정의 함수 사용** <br>
+setwd('D:/동덕/R')<br>
+source("file_name.R")<br>
+myfun(5,10)<br>
+-> file_name.R파일에서 정의한 myfun 함수를 새 파일에서도 사용할 수 있음<br>
+
+**4. 위치(인덱스) 반환 함수** <br>
+idx = which(조건): 조건에 맞는 값들의 인덱스 반환<br>
+ex) which(a>5): 3 5 이런 식으로 숫자배열 리턴<br>
+df[idx, ]와 같이 쓸 수 있음 (idx에 해당하는 모든 행 반환)<br>
+
+which.max(a): a의 최댓값의 인덱스 (which(a==max(a))와 같음)<br>
+which.min(a): a의 최솟값의 인덱스<br>
+a[ [which.max(a)] ]: a의 최댓값의 인덱스로 해당 값에 접근<br>
