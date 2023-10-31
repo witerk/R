@@ -307,7 +307,7 @@ print(a$sum)<br>
 setwd('D:/동덕/R')<br>
 source("file_name.R")<br>
 myfun(5,10)<br>
--> file_name.R파일에서 정의한 myfun 함수를 새 파일에서도 사용할 수 있음<br>
+-> file_name.R파일에서 정의한 myfun 함수를 새 파일에서도 사용할 수 있음 (source함수를 사용하는 순간 해당 파일 내의 함수들 전부 로드해옴)<br>
 
 **4. 위치(인덱스) 반환 함수** <br>
 idx = which(조건): 조건에 맞는 값들의 인덱스 반환<br>
