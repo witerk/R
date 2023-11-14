@@ -317,3 +317,90 @@ df[idx, ]와 같이 쓸 수 있음 (idx에 해당하는 모든 행 반환)<br>
 which.max(a): a의 최댓값의 인덱스 (which(a==max(a))와 같음)<br>
 which.min(a): a의 최솟값의 인덱스<br>
 a[ [which.max(a)] ]: a의 최댓값의 인덱스로 해당 값에 접근<br>
+
+## **<chapter 7>** <br>
+**1. 도수분포표 table** <br>
+table(data): 각 원소별 개수 카운트 <br>
+table(data)/length(data): 전체 중 각 데이터가 차지하는 비율 <br>
+
+table[c(2,3,1,4)] -> 기존 데이터의 순서를 2번째를 1번째로, 3번째를 2번째로... 뒤바꿈 <br>
+
+**2. 막대/원 그래프 barplot pie** <br>
+barplot(ds, main='favorite color', col=colors) <br>
+pie(ds, main='favorite season', col=colors) <br>
+
+-main: 제목설정 <br>
+-col: 색상설정 <br>
+
+**3. 히스트플랏 hist** <br>
+hist(dist, main='제동거리 히스토그램', <br>
+     xlab='제동거리', ylab='빈도수', <br>
+     border='blue', col='green', <br>
+     las=2, breaks=5) <br>
+
+-xlab, ylab: xy제목 설정 <br>
+-border, col: 테두리 색, 막대 색 <br>
+-las: x축 글씨방향 회전(0~3) <br>
+-breaks: 막대 개수 조절(개수를 설정해도 R이 더 적절하다고 생각한 구간으로 변할 수 있음) <br>
+
+**4. 박스플랏 boxplot** <br>
+boxplot(dist, main='자동차 제동거리') <br>
+
+boxplot.stats(dist): 통계값 조회 <br>
+-최솟값, 1분위수, 2분위수(중앙값), 3분위수, 최대값 <br>
+-데이터 수 <br>
+-중앙값의 신뢰구간 <br>
+-극단값(이상치) 데이터 <br>
+
+*그룹이 있는 자료의 박스플랏(그룹별 박스) <br>
+boxplot(Petal.Length~Species, data=iris, main='품종별 꽃잎 길이'): 물결 뒤에 구분하고 싶은 그룹(x축) <br>
+data=iris없이 iris$Species 이런 식으로 넣어줘도 ok
+
+**5. 산점도 plot** <br>
+plot(mtcars$wt, mtcars$mpg, main='중량-연비 그래프', <br>
+     xlab='중량', ylab='연비(MPG)',  <br>
+     col='red', pch=19) <br>
+-pch: 포인터 종류 <br>
+
+*x,y를 콤마로 구분할 때는 xy순서로, ~물결로 구분할 때는 yx순서로(mpg~wt, data=mtcars) <br>
+
+pairs(mtcars[ , c('mpg', 'disp','drat','wt')]): 여러 변수들 간 산점도(각 칼럼별 조합) <br>
+-lower/upper.panel=NULL: 대각선 아래/위로 그림 삭제 <br>
+
+plot(iris.2, main='아이리스 plot', <br>
+     pch=c(as.numeric(iris$Species)), <br>
+     col=c('red','green','blue')[as.numeric(iris$Species)]) <br>
+각 종별로 포인터, 색상 다르게 산점도 그리기 <br>
+
+**6. 산점도+회귀식 abline** <br>
+abline(lm(bal~beers, data=tbl)): 산점도에 회귀식 추가 <br>
+
+cor(beers, bal): 두 칼럼 간 상관계수(파이썬 corr함수) <br>
+
+**7. 선 그래프** <br>
+plot(month, late, main='월별 지각생 통계', <br>
+     type='l', lty=1, lwd=1, <br>
+     xlab='월', ylab='지각 횟수', <br>
+     ylim=c(1,15)) <br>
+-type: 그래프 종류(l, b, s, o등) <br>
+-lty, lwd: 선 종류(1~6), 선 굵기 <br>
+-ylim: y축 최대,최소 값 <br>
+
+lines(month, late2, type='b', col='blue') <br>
+기존에 그려진 그래프에 선 추가 <br>
+
+**8. 산술연산** <br>
+평균: mean(data) <br>
+중앙값: median(data) <br>
+절사평균(상하위 n% 제외한 평균): mean(data, trim=0.2)   #trim=은 생략해도 됨 <br>
+
+사분위수: quantile(data) <br>
+사분위수, 평균, 최대최소: summary(data) <br>
+
+분산(오차제곱합/데이터 수): var(data) <br>
+표준편차(분산의 제곱근): sd(data) <br>
+범위: range(data) <br>
+차분(뒤 요소와의 차이값): diff(data) <br>
+
+**9. 그래프 도화지** <br>
+par(mfrow=c(1,2)): 그래프 몇 개 그릴건지(subplots와 유사) <br>
