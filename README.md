@@ -392,6 +392,8 @@ plot(month, late, main='월별 지각생 통계', <br>
 lines(month, late2, type='b', col='blue') <br>
 기존에 그려진 그래프에 선 추가 <br>
 
+axis(2, at=c(1,15)): y(2)축 눈금설정 (x축은 1) <br>
+
 **8. 산술연산** <br>
 평균: mean(data) <br>
 중앙값: median(data) <br>
