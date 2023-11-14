@@ -362,7 +362,7 @@ plot(mtcars$wt, mtcars$mpg, main='중량-연비 그래프', <br>
      col='red', pch=19) <br>
 -pch: 포인터 종류 <br>
 
-*x,y를 콤마로 구분할 때는 xy순서로, 물결로 구분할 때는 yx순서로(mpg~wt, data=mtcars) <br>
+*x,y를 콤마로 구분할 때는 xy순서로, 물결로 구분할 때는 yx순서로(mpg\~wt, data=mtcars) <br>
 
 pairs(mtcars[ , c('mpg', 'disp','drat','wt')]): 여러 변수들 간 산점도(각 칼럼별 조합) <br>
 -lower/upper.panel=NULL: 대각선 아래/위로 그림 삭제 <br>
