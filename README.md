@@ -373,7 +373,10 @@ plot(iris.2, main='아이리스 plot', <br>
 각 종별로 포인터, 색상 다르게 산점도 그리기 <br>
 
 **6. 산점도+회귀식 abline** <br>
-abline(lm(bal~beers, data=tbl)): 산점도에 회귀식 추가 <br>
+plot(bal~beers, data=tbl) <br>
+res = lm(bal~beers, data=tbl) : 회귀식(y=ax+b) 도출 <br>
+abline(res) <br>
+산점도를 먼저 그린 후 abline에 회귀식을 넣으면 회귀선을 그려줌 <br>
 
 cor(beers, bal): 두 칼럼 간 상관계수(파이썬 corr함수) <br>
 
