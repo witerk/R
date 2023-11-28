@@ -407,3 +407,90 @@ lines(month, late2, type='b', col='blue') <br>
 
 **9. 그래프 도화지** <br>
 par(mfrow=c(1,2)): 그래프 몇 개 그릴건지(subplots와 유사) <br>
+
+## **<chapter 8>** <br>
+**1. 결측값 NA** <br>
+결측값이 있을 경우엔 연산이x (mean, max, min, sum 등)<br>
+
+mean(x, na.rm=T) : 결측값을 무시하고 연산<br>
+is.na(x) : NA면 T, 정상값이면 F반환<br>
+sum(is.na(x)) : 결측값(T)의 개수를 셈<br>
+
+na.omit(x) : 정상값과 NA값들의 인덱스를 별도로 알려줌<br>
+as.vector(x) : NA값들을 삭제한 정상값들의 벡터<br>
+
+**2. 칼럼별 결측값 개수 세기** <br>
+- for문 활용<br>
+for (i in 1:ncol(df)){<br>
+  count_na = sum(is.na(df[ ,i]))<br>
+  cat(colnames(a[i]), ':', count_na, '\n')<br>
+}<br>
+
+- apply 함수 활용<br>
+apl = apply(df, 2, is.na) : 칼럼별 결측값 여부<br>
+apply(apl, 2, sum) : 칼럼별 결측값 개수 합<br>
+
+- 사용자 함수 + apply 함수<br>
+cal_na = function(x){<br>
+  return (sum(is.na(x)))<br>
+}<br>
+apply(a, 2, cal_na)<br>
+
+**3. 행별 결측값 개수 세기** <br>
+- rowSums 함수 활용 <br>
+sum(rowSums(is.na(df)) > 0) : 행별로 결측값의 개수를 센 뒤, 0이상인 행의 개수를 도출 <br>
+df[rowSums(a_na)>0, ] : 결측값이 있는 행 전부 출력 <br>
+
+**4. complete.cases()** <br>
+complete.cases(df) : 행별로 결측값이 하나라도 있으면 F반환 <br>
+df[complete.cases(df), ] : 결측값 없는 행만 출력 <br>
+df[!complete.cases(df), ] : 결측값 있는 행만 출력 (!) <br>
+
+**5. 특이값 도출/제거** <br>
+out = boxplot.stats(df$col)$out : 아웃라이어(특이값) 리스트 <br>
+df$col[df$col %in% out]=NA : 특이값을 NA로 대체 <br>
+df[complete.cases(df), ] : 결측값이 있는 행 제거 <br>
+
+*특이값은 '갑'의 형태이기 때문에 삭제가 쉽지 않음. 따라서 결측치로 바꾼 후, 결측치 제거 함수로 한 번에 삭제 <br>
+
+**6. 정렬(order, sort)** <br>
+order(A) : 숫자-알파벳 순 정렬 시 도출될 문자들의 '인덱스'를 반환 <br>
+sort(B) : 오름차순 된 '값' 반환 <br>
+sort(B, decreasing=T) : 내림차순 정렬(decreasing=는 반드시 써주지 않아도 됨) <br>
+
+iris[order(iris$Sepal.Length, decreasing=T), ] : 특정 칼럼 기준으로 정렬해서 데이터프레임 출력 <br>
+-정렬 기준을 이중으로 하고 싶다면 콤마(,)로 이어서 order안에 넣으면 됨 <br>
+-다중정렬에서 기본 오름차순 정렬을 설정했는데, 한 칼럼만 내림차순 정렬을 하고 싶다면 -iris$Sepecies 마이너스 부호를 붙일 것 <br>
+
+**7. 분리(그룹화, split)** <br>
+sp = split(iris, iris$Species) : 특정 칼럼을 기준으로 그룹화 <br>
+summary(sp) : 각 그룹별 칼럼 수, 클래스, mode(list)를 출력 <br>
+
+**8. subset** <br>
+subset(df, col_a='kolra', select=c('col_a, col_b, col_c')) : 데이터프레임 중 조건에 맞는 행 + select으로 지정해준 열만 출력 <br>
+(select=c(이 안에 칼럼명 따옴표 없어도 잘 나옴)) <br>
+
+**9. 랜덤 추출(sample, set.seed, combn)** <br>
+sample(data, size=n, replace=F) : data중 n개만큼 비복원추출(기본값) <br>
+set.seed(100) : 시드고정 <br>
+combn(data, n) : data중 n개를 뽑는 모든 경우의 수 (행의 수=n, 열의 수=경우의 수) <br>
+
+**10. 집계 함수(aggregate)** <br>
+aggregate(iris[ ,-5], by=list(품종=iris$Species), FUN=mean) <br>
+- 데이터(FUN의 연산이 가능한 것들만) <br>
+- by: 기준 칼럼 (여러 개 지정시 콤마로 순서대로 넣기), <br>
+이름 설정 가능 (이름 설정 안 할 시 GROUP1,2 이렇게 들어감), <br>
+반드시 리스트 형태로 넣어줄 것 <br>
+- FUN: 적용할 함수 (FUN= 생략 가능) <br>
+
+**11. 병합(merge)** <br>
+merge(A,B, by=c('name')) : name칼럼 기준으로 양쪽에 모두 공통된 행만 합쳐지고 나머지는 생략 <br>
+merge(A,B, all.x=T) : 첫 번째 칼럼 기준으로 병합 (없는 데이터는 NA로) <br>
+merge(A,B, all.y=T) : 두 번째 칼럼 기준으로 병합 <br>
+
+merge(A,B, by.x=c('name'), by.y=c('same')) : 기준으로 삼고싶은 칼럼들의 이름이 다를 경우 각각 지정 (지정하지 않을 경우 서로 다른 칼럼으로 인식) <br>
+
+by로 기준 칼럼을 정해주지 않았을 경우, 이름이 같은 칼럼을 기준으로 자동 병합 <br>
+단, 이때 이름이 같은 칼럼이 두 종류 이상이면 둘 모두를 기준칼럼으로 사용 <br>
+=> 두 칼럼 모두가 일치해야만 동일한 행으로 인식 <br>
+(ex. 이름+학번이 기준칼럼일 때 이름은 같고 학번이 다른 친구가 있다면 다른 행으로 인식, 각기 다른 행으로 출력됨) <br>
