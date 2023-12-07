@@ -494,3 +494,87 @@ by로 기준 칼럼을 정해주지 않았을 경우, 이름이 같은 칼럼을
 단, 이때 이름이 같은 칼럼이 두 종류 이상이면 둘 모두를 기준칼럼으로 사용 <br>
 => 두 칼럼 모두가 일치해야만 동일한 행으로 인식 <br>
 (ex. 이름+학번이 기준칼럼일 때 이름은 같고 학번이 다른 친구가 있다면 다른 행으로 인식, 각기 다른 행으로 출력됨) <br>
+
+
+## **<chapter 9>** <br>
+**1. 트리맵(treemap)** <br>
+library(treemap): 패키지 활성화 <br>
+
+treemap(GNI2014,  <br>
+        index=c('continent', 'iso3'),    #대륙, 나라 <br>
+        vSize='population',  <br>
+        vColor='GNI',  type='value', <br>
+        title='GNI') <br>
+        
+-데이터(데이터프레임 형식만) <br>
+-index: 박스를 나눌 기준 컬럼 (박스 위에 각 값이 글자로 적힘) <br>
+-vSize: 박스의 크기 기준 컬럼 <br>
+-vColol, type: 박스 안의 색상 기준 컬럼/ 해당 칼럼의 수치를 색상값으로 삼겠다 <br>
+-title: 제목(타이틀) 지정 <br>
+
+**2. 버블차트(symbols)** <br>
+symbols(x$Illiteracy, x$Murder, circles=x$Population,  <br>
+        inches=0.3,  <br>
+        bg='pink', fg='blue', lwd=1.5,  <br>
+        xlab='rate of Illiteracy', ylab='Crime(Murder) rate', <br>
+        main='Illiteracy and Crime' ) <br>
+        
+-xy값, 원 기준 칼럼: 필수 <br>
+-inches: 원 크기 조절 (클수록 전체적으로 원 사이즈 커짐) <br>
+-bg(원 내부 색상), fg(원 테두리 색상), lwd(테두리 선 두께) <br>
+-xlab, ylab: x,y축 이름 지정 <br>
+-main: 제목(타이틀) 지정 <br>
+
+text(x$Illiteracy, x$Murder, rownames(x),   <br>
+     cex=0.6, col='red') <br>
+     
+-xy값, 원 위에 적을 글씨 <br>
+-cex: 글자 크기 <br>
+-col: 색상 <br>
+
+**3. 모자이크 플랏(mosaicplot)** <br>
+mosaicplot(~mtcars$gear+mtcars$vs, <br>
+     color=c('blue', 'pink'), main='gear and vs') <br>
+     
+-[~] [x값] [+] [y값] 순으로 넣어줌 (df$칼럼 형식으로 적어도 좋고, 칼럼명만 쓴 후 data=df 옵션을 추가해도 좋음) <br>
+-color: x값에 따른 vs값의 각 칸을 다른 색상으로 칠함(기본=흑백) 색 지정 없이 color=T로 설정해주면 자동 설정 <br>
+-main: 제목(타이틀) 지정 <br>
+
+**4. ggplot** <br>
+library(ggplot): 라이브러리 활성화 <br>
+-옵션이 콤마(,)가 아닌 +로 이어지는 것이 특징 <br>
+
+ggplot(mtcars, aes(x=wt, y=mpg, fill=Species, color=Species))) <br>
+: 데이터셋 지정/ xy칼럼, 색상 지정(내부, 테두리) <br>
+
+geom_point(size=3) <br>
+: 산점도, <br>
+점 사이즈 설정 <br>
+
+geom_bar(stat='identity', width=0.5, fill='blue')+ coord_flip() <br>
+: 막대 그래프, <br>
+y축 값을 칼럼 내 수치로 사용하고 싶다면 stat옵션을 반드시 줘야 함. 없으면 count로 들어감(이때 aes에서 y값 지정x), <br>
+두께, 색상(한 가지 색으로 통일할 경우) <br>
+: 수평 막대그래프로 그리기 <br>
+
+geom_histogram(binwidth=0.5, position='dodge')+ <br>
+: 히스토그램 (aes에서 y값 지정x) <br>
+간격 설정, 겹치지 않게 하는 옵션 <br>
+
+geom_boxplot() <br>
+: 박스플랏 (aes에서 x값 지정x) <br>
+특정 칼럼 종류별로(ex. 꽃의 종) 박스를 나누고 싶다면 aes(fill=col) 옵션 주고, 박스플랏 내에 fill 색상 옵션x <br>
+
+geom_line(col='red') <br>
+: 선 그래프,  <br>
+선 색상 지정 <br>
+
+labs(x='WT', y='MPG') <br>
+: x축, y축, title제목 설정 <br>
+
+ggtitle('월별 강수량')+ theme(plot.title=element_text(size=25, face='bold',color='steelblue')) <br>
+: 제목 설정(labs에서 title을 따로 지정하지 않았을 경우) <br>
+: 제목에 대한 옵션 추가 <br>
+  
+theme(legend.position='top') <br>
+: 범례 위치 설정(기본값은 우측) <br>
